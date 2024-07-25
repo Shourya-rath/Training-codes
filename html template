@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Planner</title>
+</head>
+<body>
+    <h1>Event Planner</h1>
+
+    <form action="/add" method="POST">
+        <label for="task">Task or Event:</label>
+        <input type="text" id="task" name="task" required>
+        <label for="date">Date (YYYY-MM-DD):</label>
+        <input type="date" id="date" name="date">
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for item in todo_list %}
+            <li>
+                {{ item['task'] }} - {{ item['date'] }}
+                <a href="/delete/{{ loop.index0 }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
