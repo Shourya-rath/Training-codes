@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Planner/To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Event Planner/To-Do List</h1>
+
+        <div class="task-form">
+            <h2>Add Task</h2>
+            <form id="taskForm">
+                <label for="taskTitle">Task Title:</label>
+                <input type="text" id="taskTitle" name="taskTitle" required>
+
+                <label for="taskDate">Due Date (optional):</label>
+                <input type="date" id="taskDate" name="taskDate">
+
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+
+        <div class="task-list">
+            <h2>Tasks</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTableBody">
+                    <!-- Tasks will be dynamically added here -->
+                </tbody>
+            </table>
+            <button id="deleteSelected">Delete Selected</button>
+            <button id="assignDate">Assign Date</button>
+        </div>
+
+        <div class="subtask-form">
+            <h2>Add Subtask</h2>
+            <form id="subtaskForm">
+                <label for="parentTask">Select Parent Task:</label>
+                <select id="parentTask" name="parentTask" required>
+                    <!-- Parent tasks will be dynamically populated here -->
+                </select>
+
+                <label for="subtaskTitle">Subtask Title:</label>
+                <input type="text" id="subtaskTitle" name="subtaskTitle" required>
+
+                <button type="submit">Add Subtask</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
