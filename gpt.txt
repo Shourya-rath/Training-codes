@@ -1,0 +1,313 @@
+Sure! I'll help you create a basic event planner/to-do list web application using Flask. We'll start with the HTML and CSS for a user-friendly GUI that supports adding, removing tasks and subtasks, as well as selecting multiple tasks for batch actions.
+
+### Step 1: HTML (index.html)
+
+Here's a simple HTML file to create a user interface for the event planner/to-do list. This file includes forms for adding tasks and subtasks, a list to display tasks, and options to select and delete tasks or assign a date.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Planner/To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Event Planner/To-Do List</h1>
+
+        <div class="task-form">
+            <h2>Add Task</h2>
+            <form id="taskForm">
+                <label for="taskTitle">Task Title:</label>
+                <input type="text" id="taskTitle" name="taskTitle" required>
+
+                <label for="taskDate">Due Date (optional):</label>
+                <input type="date" id="taskDate" name="taskDate">
+
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+
+        <div class="task-list">
+            <h2>Tasks</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTableBody">
+                    <!-- Tasks will be dynamically added here -->
+                </tbody>
+            </table>
+            <button id="deleteSelected">Delete Selected</button>
+            <button id="assignDate">Assign Date</button>
+        </div>
+
+        <div class="subtask-form">
+            <h2>Add Subtask</h2>
+            <form id="subtaskForm">
+                <label for="parentTask">Select Parent Task:</label>
+                <select id="parentTask" name="parentTask" required>
+                    <!-- Parent tasks will be dynamically populated here -->
+                </select>
+
+                <label for="subtaskTitle">Subtask Title:</label>
+                <input type="text" id="subtaskTitle" name="subtaskTitle" required>
+
+                <button type="submit">Add Subtask</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+```
+
+### Step 2: CSS (styles.css)
+
+Here's the CSS file to style the HTML elements and make the user interface more attractive.
+
+```css
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.task-form, .subtask-form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="date"], select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.task-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.task-list th, .task-list td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.task-list th {
+    background-color: #f4f4f4;
+}
+
+.task-list tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.task-list button {
+    background-color: #dc3545;
+}
+
+.task-list button:hover {
+    background-color: #c82333;
+}
+
+.task-list button, .task-list select {
+    margin-right: 10px;
+}
+```
+
+### Step 3: JavaScript (scripts.js)
+
+Here’s a basic JavaScript file to handle adding, removing tasks and subtasks, and selecting tasks. This script will interact with the HTML forms and buttons.
+
+```javascript
+// scripts.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    const taskForm = document.getElementById('taskForm');
+    const subtaskForm = document.getElementById('subtaskForm');
+    const taskTableBody = document.getElementById('taskTableBody');
+    const deleteSelectedButton = document.getElementById('deleteSelected');
+    const assignDateButton = document.getElementById('assignDate');
+    const parentTaskSelect = document.getElementById('parentTask');
+
+    let tasks = [];
+    let taskIdCounter = 1;
+
+    function renderTasks() {
+        taskTableBody.innerHTML = '';
+        parentTaskSelect.innerHTML = '<option value="">-- Select Task --</option>';
+
+        tasks.forEach(task => {
+            const taskRow = document.createElement('tr');
+            taskRow.dataset.taskId = task.id;
+
+            taskRow.innerHTML = `
+                <td><input type="checkbox" class="task-checkbox"></td>
+                <td>${task.title}</td>
+                <td>${task.date || 'No due date'}</td>
+                <td><button class="delete-task">Delete</button></td>
+            `;
+
+            taskTableBody.appendChild(taskRow);
+
+            const option = document.createElement('option');
+            option.value = task.id;
+            option.textContent = task.title;
+            parentTaskSelect.appendChild(option);
+        });
+    }
+
+    function addTask(title, date) {
+        tasks.push({
+            id: taskIdCounter++,
+            title,
+            date,
+            subtasks: []
+        });
+        renderTasks();
+    }
+
+    function deleteTask(id) {
+        tasks = tasks.filter(task => task.id !== id);
+        renderTasks();
+    }
+
+    function addSubtask(parentId, title) {
+        const task = tasks.find(task => task.id === parseInt(parentId));
+        if (task) {
+            task.subtasks.push({ title });
+            renderTasks();
+        }
+    }
+
+    taskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = e.target.taskTitle.value;
+        const date = e.target.taskDate.value;
+        addTask(title, date);
+        e.target.reset();
+    });
+
+    subtaskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const parentId = e.target.parentTask.value;
+        const title = e.target.subtaskTitle.value;
+        addSubtask(parentId, title);
+        e.target.reset();
+    });
+
+    taskTableBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-task')) {
+            const taskId = parseInt(e.target.closest('tr').dataset.taskId);
+            deleteTask(taskId);
+        }
+    });
+
+    deleteSelectedButton.addEventListener('click', () => {
+        document.querySelectorAll('.task-checkbox:checked').forEach(checkbox => {
+            const taskId = parseInt(checkbox.closest('tr').dataset.taskId);
+            deleteTask(taskId);
+        });
+    });
+
+    assignDateButton.addEventListener('click', () => {
+        const newDate = prompt('Enter the new date (YYYY-MM-DD):');
+        if (newDate) {
+            document.querySelectorAll('.task-checkbox:checked').forEach(checkbox => {
+                const taskId = parseInt(checkbox.closest('tr').dataset.taskId);
+                const task = tasks.find(task => task.id === taskId);
+                if (task) {
+                    task.date = newDate;
+                }
+            });
+            renderTasks();
+        }
+    });
+});
+```
+
+### Step 4: Flask App (app.py)
+
+Here’s a basic Flask application to serve the static files and handle the task data.
+
+```python
+from flask import Flask, render_template, request, jsonify
+
+app = Flask(__name__)
+
+tasks = []
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/tasks', methods=['GET', 'POST', 'DELETE'])
+def manage_tasks():
+    global tasks
+    if request.method == 'POST':
+        task = request.json
+        task['id'] = len(tasks) + 1
+        tasks.append(task)
+        return jsonify(task), 201
+
+    elif request.method == 'DELETE':
+        task_ids = request.json.get('ids', [])
+        tasks = [task for task in tasks if task['id'] not in task_ids]
+        return '', 204
+
+    return jsonify(tasks)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+
+### Instructions
+
+1. **Save** the HTML, CSS, and JavaScript files in a directory named `templates` and `static` respectively.
+2. **Run
