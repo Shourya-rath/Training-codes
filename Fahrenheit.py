@@ -23,3 +23,8 @@ label.pack(pady=10)
 entry tk. Entry (root)
 
 entry.pack(pady=5)
+button = tk.Button(root, text="Convent", command=fahrenheit_to_celsi
+
+button.pack(pady-10)
+
+root.mainloop()
