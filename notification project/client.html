@@ -1,0 +1,31 @@
+<!-- client.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Push Notification Client</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div>
+    <h2>🔔 Push Notification Client</h2>
+    <p id="status">Connecting...</p>
+    <ul id="messages"></ul>
+  </div>
+  <script>
+    const status = document.getElementById('status');
+    const messages = document.getElementById('messages');
+
+    const ws = new WebSocket('ws://localhost:8081');
+
+    ws.onopen = () => {
+      status.textContent = '✅ Connected to server';
+    };
+
+    ws.onmessage = (event) => {
+      const li = document.createElement('li');
+      li.textContent = event.data;
+      messages.appendChild(li);
+    };
+  </script>
+</body>
+</html>

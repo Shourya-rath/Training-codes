@@ -1,0 +1,22 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background: #2c2c2c;
+}
+div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+h2{
+    border-radius: 5px;
+    background: #494949;
+}
+p,h2,ul{
+    color: aliceblue;
+    
+}
