@@ -8,6 +8,7 @@
         - [Languages and tools](#languages-and-tools)
         - [Gamming](#gamming)
     - [blogs](#blogs)
+    - [Gihub repos](#gihub-repos)
   - [Job resources](#job-resources)
 
 ---
@@ -54,10 +55,16 @@
   
 - [game programming patterns]("https://gameprogrammingpatterns.com/contents.html")
   
-  
+- Handmade hero playlist  
 
-### blogs
+### blogs 
 - [ Dev.to ]("https://dev.to/")
+
+
+### Gihub repos
+- How to buld your own x
+- 30 Days Javascript
+
 
 ---
 ## Job resources
