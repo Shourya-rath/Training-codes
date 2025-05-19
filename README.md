@@ -59,6 +59,7 @@
 
 ### blogs 
 - [ Dev.to ]("https://dev.to/")
+- [TerryDavis Quotes and More]("https://sizeof.cat/about/")
 
 
 ### Github repos
