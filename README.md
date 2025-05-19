@@ -8,7 +8,7 @@
         - [Languages and tools](#languages-and-tools)
         - [Gamming](#gamming)
     - [blogs](#blogs)
-    - [Gihub repos](#gihub-repos)
+    - [Github repos](#github-repos)
   - [Job resources](#job-resources)
 
 ---
@@ -61,7 +61,7 @@
 - [ Dev.to ]("https://dev.to/")
 
 
-### Gihub repos
+### Github repos
 - How to buld your own x
 - 30 Days Javascript
 
