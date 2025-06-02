@@ -8,4 +8,5 @@
 - [Udte Teer](Udte_Teer.md)
 - [Fomo](FOMO.md) 
 - [WishList](WishList.md)
-- [SkyKing](SkyKing.md)
+- [SkyKing](SkyKing.md) 22-05-2025
+- [Approaches](Approaches.md) 02-06-2025
