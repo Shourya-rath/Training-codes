@@ -2,7 +2,7 @@
 ---
 This blog talks about the instance where I learned MPI through group study with kapil.
 - There can be multiple approaches and in the "COOLS" they must be noted down
-- I'll prrobably write about the approaches I discover for "stuff" in life that will most likely repeat .
+- I'll prrobably write about the approaches I discover for "stuff" in life that will most likely repeat .( most probably in Google DOCS  )
 
 **FACT:** was watching a hitesh choudhary video about "product" vs "project"
 
